@@ -1,6 +1,6 @@
 2021 Bacterial Abundance Data (DAPI) & TOC Data Analysis
 ================
-Your Name
+Ally Doolittle
 11/03/2021
 
 # Goal
@@ -15,8 +15,7 @@ Load packages that we’ll need to analyze our data.
 
 ``` r
 #make sure to update the filepaths for your own locally-stored repository! 
-
-excel_sheets("~/Documents/144l_students_2021/Input_Data/week4/144L_2021_BactAbund.xlsx")
+excel_sheets("144L_2021_BactAbund.xlsx")
 ```
 
     ## [1] "Metadata"  "FCM_Data"  "DAPI_Data" "TOC_Data"
@@ -24,73 +23,58 @@ excel_sheets("~/Documents/144l_students_2021/Input_Data/week4/144L_2021_BactAbun
 ``` r
 #Mac: to make an arrow, use Option + - 
 
-metadata <- read_excel("~/Documents/144l_students_2021/Input_Data/week4/144L_2021_BactAbund.xlsx", sheet = "Metadata")
+metadata <- read_excel("144L_2021_BactAbund.xlsx", sheet = "Metadata")
 
 glimpse(metadata)
 ```
 
     ## Rows: 80
     ## Columns: 16
-    ## $ Experiment           <chr> "144L_2021", "144L_2021", "144L_2021", "144L_2021…
-    ## $ Location             <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", "Gol…
-    ## $ Temperature          <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1…
-    ## $ Depth                <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-    ## $ Bottle               <chr> "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",…
-    ## $ Timepoint            <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6…
-    ## $ Treatment            <chr> "Control", "Control", "Control", "Control", "Cont…
-    ## $ Target_DOC_Amendment <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-    ## $ Inoculum_L           <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-    ## $ Media_L              <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5…
-    ## $ Datetime             <chr> "2021-10-04T16:00", "2021-10-05T08:00", "2021-10-…
-    ## $ TOC_Sample           <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA…
-    ## $ Cell_Sample          <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…
-    ## $ DAPI_Sample          <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA…
-    ## $ DNA_Sample           <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA…
-    ## $ Nutrient_Sample      <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
+    ## $ Experiment           <chr> "144L_2021", "144L_2021", "144L_2021", "144L_2021~
+    ## $ Location             <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", "Gol~
+    ## $ Temperature          <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1~
+    ## $ Depth                <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
+    ## $ Bottle               <chr> "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",~
+    ## $ Timepoint            <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6~
+    ## $ Treatment            <chr> "Control", "Control", "Control", "Control", "Cont~
+    ## $ Target_DOC_Amendment <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+    ## $ Inoculum_L           <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+    ## $ Media_L              <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5~
+    ## $ Datetime             <chr> "2021-10-04T16:00", "2021-10-05T08:00", "2021-10-~
+    ## $ TOC_Sample           <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA~
+    ## $ Cell_Sample          <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T~
+    ## $ DAPI_Sample          <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA~
+    ## $ DNA_Sample           <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FA~
+    ## $ Nutrient_Sample      <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F~
 
 ``` r
 #unique(metadata$Bottle)
 #unique(metadata$Treatment)
 
-dapi_data <- read_excel("~/Documents/144l_students_2021/Input_Data/week4/144L_2021_BactAbund.xlsx", sheet = "DAPI_Data")
+dapi_data <- read_excel("144L_2021_BactAbund.xlsx", sheet = "DAPI_Data")
 glimpse(dapi_data)
 ```
 
     ## Rows: 12
-    ## Columns: 17
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## Columns: 6
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 1043…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ doubling                 <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 1043~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
 
 ``` r
-toc_data <- read_excel("~/Documents/144l_students_2021/Input_Data/week4/144L_2021_BactAbund.xlsx", sheet = "TOC_Data")
+toc_data <- read_excel("144L_2021_BactAbund.xlsx", sheet = "TOC_Data")
 glimpse(toc_data)
 ```
 
     ## Rows: 16
-    ## Columns: 8
-    ## $ Treatment     <chr> "Control", "Control", "Control", "Control", "Kelp Exudat…
-    ## $ Timepoint     <dbl> 0, 4, 8, 9, 0, 4, 8, 9, 0, 4, 8, 9, 0, 4, 8, 9
-    ## $ Mean_uMC      <dbl> 91.70646, 89.13506, 87.79890, 84.82951, 94.82839, 89.170…
-    ## $ Stdev_uMC     <dbl> 0.28298816, 0.19207804, 0.29282962, 0.04865985, 0.308884…
-    ## $ DOC_uMC       <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-    ## $ `Bioav_DOC_%` <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-    ## $ Delta_DOC_uMC <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-    ## $ BGE           <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+    ## Columns: 4
+    ## $ Treatment <chr> "Control", "Control", "Control", "Control", "Kelp Exudate", ~
+    ## $ Timepoint <dbl> 0, 4, 8, 9, 0, 4, 8, 9, 0, 4, 8, 9, 0, 4, 8, 9
+    ## $ Mean_uMC  <dbl> 91.70646, 89.13506, 87.79890, 84.82951, 94.82839, 89.17062, ~
+    ## $ Stdev_uMC <dbl> 0.28298816, 0.19207804, 0.29282962, 0.04865985, 0.30888466, ~
 
 ``` r
 dapi_metadata <- metadata %>%
@@ -109,37 +93,26 @@ glimpse(joined)
 ```
 
     ## Rows: 40
-    ## Columns: 30
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
-    ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1…
-    ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-    ## $ Timepoint                <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, …
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Control", "…
-    ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10,…
-    ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
-    ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, …
-    ## $ Datetime                 <chr> "2021-10-04T16:00", "2021-10-05T08:00", "2021…
-    ## $ TOC_Sample               <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE…
-    ## $ DNA_Sample               <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…
-    ## $ Cells_mL                 <dbl> 660667.0, NA, NA, NA, 919405.6, NA, NA, NA, 1…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, NA, NA, NA, 363326.27, NA, NA, NA, …
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, NA, NA, NA, 0.05080353, NA, NA, N…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, NA, NA, NA, 0.011000369, NA, NA,…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, NA, NA, NA, 20.30876, NA, NA, NA, 2…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, NA, NA, NA, 20.63924, NA, NA, NA, 2…
-    ## $ cells_exp_phase_start    <dbl> 660667000, NA, NA, NA, 660667000, NA, NA, NA,…
-    ## $ cells_exp_phase_end      <dbl> 919405583, NA, NA, NA, 919405583, NA, NA, NA,…
-    ## $ days_exp_phase_start     <dbl> 0, NA, NA, NA, 0, NA, NA, NA, 0, NA, 0, NA, N…
-    ## $ days_exp_phase_end       <dbl> 2.166667, NA, NA, NA, 2.166667, NA, NA, NA, 2…
-    ## $ mew                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-    ## $ doubling                 <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-    ## $ bac_carbon_uM            <dbl> 1.651668, NA, NA, NA, 2.298514, NA, NA, NA, 2…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+    ## Columns: 19
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
+    ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1~
+    ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+    ## $ Timepoint                <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, ~
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Control", "~
+    ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10,~
+    ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ~
+    ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, ~
+    ## $ Datetime                 <chr> "2021-10-04T16:00", "2021-10-05T08:00", "2021~
+    ## $ TOC_Sample               <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE~
+    ## $ DNA_Sample               <lgl> TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS~
+    ## $ Cells_mL                 <dbl> 660667.0, NA, NA, NA, 919405.6, NA, NA, NA, 1~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, NA, NA, NA, 363326.27, NA, NA, NA, ~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, NA, NA, NA, 0.05080353, NA, NA, N~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, NA, NA, NA, 0.011000369, NA, NA,~
 
 # Prepare Data
 
@@ -165,47 +138,36 @@ glimpse(cells)
 ```
 
     ## Rows: 12
-    ## Columns: 36
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 25
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ doubling                 <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
 
 # Plot Growth Curves
 
-We will plot growth curves for each treament with DAPI cell abundance
+We will plot growth curves for each treatment with DAPI cell abundance
 and biovolume data.
 
 ## Cell Abundance:
@@ -241,48 +203,43 @@ glimpse(cells)
 ```
 
     ## Rows: 12
-    ## Columns: 36
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 25
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ doubling                 <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
 
 Q1: What differences between the treatments do you observe? Does this
 make sense in the context of the oxygen drawdown data (pictured below)?
 
-A1:
+A1: The Control treatment has a linear progression (only an exponential
+growth phase) while the kelp exudate treatments display a peak and then
+an increase in generation time. The GNP treatment has an exponential
+growth phase that becomes a death phase around day 2. This makes sense
+when looking at the oxygen drawdown data because the GNP treatment has
+the largest decrease in oxygen. This is because as the amount of cells
+increase so does respiration.
 
 Oxygen Drawdown: ![](EEMB144_remin_autoBOD.png)
 
@@ -314,54 +271,53 @@ glimpse(cells)
 ```
 
     ## Rows: 12
-    ## Columns: 36
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 25
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ doubling                 <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
 
 Q2: What differences do you notice between the cell abundance data and
 the cell biovolume data across each treatment?
 
-A2:
+A2: The Control cell abundance grows across the 4 days but its mean
+biovolume slightly declined which is probably due to individual cell
+size decreasing while cell abundance grew. The Kelp Exudate and GNP
+treatments increased in biovolume but then starting decreasing around
+day 2 and were below their initial values by day 4. This is probably due
+to the same reasons as with the Control. The Kelp Exudate +NP treatment
+had only an exponential growth phase in cell abundance but with
+biovolume it showed a continuing decrease beginning around day 2 while
+at day 4 having a higher biovolume than at day 0. This is most likely
+due to cell size and abundance increasing, then by day 4 cell size was
+roughly the same or slightly larger than at day 0.
 
 # Next Steps
 
 We can calculate:
 
--   total change in cells from inital condition to the end of the
+-   total change in cells from initial condition to the end of the
     experiment
 -   specific growth rates as the slope of ln(abundance) v time during
     exponential growth phase
@@ -371,7 +327,7 @@ We can calculate:
 in each of the bottles, if it does. To do this, we’ll plot ln(abundance)
 vs time.
 
-# Identify exponential phase of growth
+# Identify Exponential Phase of Growth
 
 **NOTE about logarithms in R**
 
@@ -398,7 +354,7 @@ ln_cells %>%
   geom_line(aes(color = factor(Treatment, levels = levels)), size = 1) +
   geom_point(aes(fill = factor(Treatment, levels = levels)), size = 3, color = "black",shape = 21) + 
   #geom_text(aes(label = dna), size = 12, color = "#E41A1C")+
-  labs(x = "Days", y = expression(paste("∆ln cells, L"^-1)), fill = "") + #delta is Option + j 
+  labs(x = "Days", y = expression(paste("Delta ln cells, L"^-1)), fill = "") + #delta is Option + j 
   guides(color = "none") + 
   #scale_color_manual(values = custom.colors) +
   #scale_fill_manual(values = custom.colors) +
@@ -418,7 +374,11 @@ instead of the FCM data? Hint: Think about this question in terms of
 bacterial growth curves, and which phase of growth we need in order to
 calculate specific growth rates.
 
-A3:
+A3: Having less data points creates larger SD bars and more uncertainty
+in the data. We use the slope of only exponential growth to calculate
+the growth rate. In using the DAPI data to calculate the specific growth
+rate we may be missing points that provide a fuller picture of the
+growth curve and therefore use a less than accurate slope value.
 
 ## Calculate growth rates, doubling times, and ∆cell abundances using cell abundance data (cells/L)
 
@@ -443,52 +403,45 @@ glimpse(growth)
 ```
 
     ## Rows: 12
-    ## Columns: 45
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 38
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0…
-    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311…
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
-    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76…
-    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
+    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76~
+    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000~
     ## $ exp_start                <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ## $ exp_end                  <dbl> 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, …
+    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31~
+    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, ~
+    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6~
+    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, ~
     ## $ days_exp_start           <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3…
+    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166~
+    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0~
+    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311~
+    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3~
 
 ``` r
 #check <- growth %>%
@@ -535,64 +488,57 @@ glimpse(bactcarbon)
 ```
 
     ## Rows: 12
-    ## Columns: 52
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 45
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0…
-    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311…
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
-    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76…
-    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
+    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76~
+    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000~
     ## $ exp_start                <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ## $ exp_end                  <dbl> 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, …
+    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31~
+    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, ~
+    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6~
+    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, ~
     ## $ days_exp_start           <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3…
+    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166~
+    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0~
+    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311~
+    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3~
     ## $ CCF                      <dbl> 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
-    ## $ bc                       <dbl> 1.651667, 2.298514, 2.834674, 1.657720, …
-    ## $ delta_bc                 <dbl> 0.6468465, 0.6468465, 0.6468465, 0.9512743, 0…
-    ## $ biovol_CCF               <dbl> 29.97370, 32.29843, 27.84930, 26.80546, 39.49…
-    ## $ biovol_bc                <dbl> 1.650220, 2.474613, 2.631457, 1.481199, 3.434…
-    ## $ biovol_bc_exp_end        <dbl> 2.474613, 2.474613, 2.474613, 3.434791, 3.434…
-    ## $ delta_biovol_bc          <dbl> 0.8243938, 0.8243938, 0.8243938, 1.9535926, 1…
+    ## $ bc                       <dbl> 1.651667, 2.298514, 2.834674, 1.657720, 2.608~
+    ## $ delta_bc                 <dbl> 0.6468465, 0.6468465, 0.6468465, 0.9512743, 0~
+    ## $ biovol_CCF               <dbl> 29.97370, 32.29843, 27.84930, 26.80546, 39.49~
+    ## $ biovol_bc                <dbl> 1.650220, 2.474613, 2.631457, 1.481199, 3.434~
+    ## $ biovol_bc_exp_end        <dbl> 2.474613, 2.474613, 2.474613, 3.434791, 3.434~
+    ## $ delta_biovol_bc          <dbl> 0.8243938, 0.8243938, 0.8243938, 1.9535926, 1~
 
 ``` r
 #update this filepath to match your own repository 
 #save your data to a .csv 
-write.csv(bactcarbon, "~/Documents/144l_students_2021/Output_Data/week6/211101_dapi_data_calculations.csv")
+write.csv(bactcarbon, "211103_2021_dapi_toc_data_analysis_submission_files/211103_dapi_data_calculations.csv")
 
 #normally we would do this for the individual bottles and then calculate averages, but can't do that here since we have data from combined bottles 
 ```
@@ -615,7 +561,7 @@ trt_ba
 ![](211103_2021_dapi_toc_data_analysis_submission_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
-saveRDS(trt_ba, "~/Documents/144l_students_2021/Output_Data/week6/144L_trt_ba_plot.rds")
+saveRDS(trt_ba, "211103_2021_dapi_toc_data_analysis_submission_files/144L_trt_ba_plot.rds")
 ```
 
 ``` r
@@ -634,13 +580,15 @@ trt_ba_biovol
 ![](211103_2021_dapi_toc_data_analysis_submission_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-saveRDS(trt_ba_biovol, "~/Documents/144l_students_2021/Output_Data/week6/144L_trt_ba_biovol_plot.rds")
+saveRDS(trt_ba_biovol, "211103_2021_dapi_toc_data_analysis_submission_files/144L_Exp_Processed_BactAbund.rds")
 ```
 
 Q4: How do the bacterial carbon values change when we account for
 changes in cell biovolume as the experiment progresses?
 
-A4:
+A4: When the cell biovolume is incorporated there’s still a lot of cells
+but they’re smaller, so we see a sharper decrease in the bacterial
+carbon.
 
 ## Barplots
 
@@ -688,7 +636,7 @@ delta_cells <- bar.data %>%
   ggplot(aes(x = factor(Treatment, levels = levels), y = delta_cells), group = Treatment) +
   geom_col(color = "black", fill = "white") +
   #geom_errorbar(aes(ymin = ave_delta_bc - sd_delta_bc, ymax = ave_delta_bc + sd_delta_bc), width = 0.1) +
-  labs(x = "", y = expression("∆ Cells, L"^-1)) +
+  labs(x = "", y = expression("Delta Cells, L"^-1)) +
   coord_flip() +
   theme_bw()
 delta_cells
@@ -698,9 +646,11 @@ delta_cells
 
 ``` r
 #uncomment the next line below if you need to install the package "patchwork" (remove the #)
-# install.packages("patchwork")
+#install.packages("patchwork")
 library(patchwork)
 ```
+
+    ## Warning: package 'patchwork' was built under R version 4.0.5
 
 ``` r
 #we can add our plots together to make a nice composite figure
@@ -714,12 +664,14 @@ Q5: Do the patterns you see in the ∆Cells, specific growth rate (u), and
 doubling time line up with our previous observations of cell abundance?
 How about with the oxygen drawdown data?
 
-A5:
+A5: Yes all the patterns line up with the cell abundance data. They also
+line up with the oxygen drawdown data. For example the GNP treatment has
+the highest growth rate per day and the greatest decline in oxygen.
 
 # Save Data
 
 ``` r
-saveRDS(bactcarbon, "~/Documents/144l_students_2021/Output_Data/week6/144L_Exp_Processed_BactAbund.rds")
+saveRDS(bactcarbon, "211103_2021_dapi_toc_data_analysis_submission_files/144L_Exp_Processed_BactAbund.rds")
 ```
 
 # Incorporate TOC data
@@ -735,65 +687,54 @@ glimpse(toc)
 ```
 
     ## Rows: 12
-    ## Columns: 58
-    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_…
-    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", …
+    ## Columns: 47
+    ## $ Experiment               <chr> "144L_2021", "144L_2021", "144L_2021", "144L_~
+    ## $ Location                 <chr> "Goleta Pier", "Goleta Pier", "Goleta Pier", ~
     ## $ Temperature              <dbl> 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
     ## $ Depth                    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     ## $ Timepoint                <dbl> 0, 4, 8, 0, 4, 8, 0, 4, 8, 0, 4, 8
-    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat…
+    ## $ Treatment                <chr> "Control", "Control", "Control", "Kelp Exudat~
     ## $ Target_DOC_Amendment     <dbl> 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10
     ## $ Inoculum_L               <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ Media_L                  <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202…
-    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,…
-    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104…
-    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181…
-    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149…
-    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054…
-    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31…
-    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, 20.76…
-    ## $ cells_exp_phase_start    <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_phase_end      <dbl> 919405583, 919405583, 919405583, 1043597828, …
-    ## $ days_exp_phase_start     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_phase_end       <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0…
-    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311…
-    ## $ delta_cells_exp          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ bac_carbon_uM            <dbl> 1.651668, 2.298514, 2.834674, 1.657720, 2.608…
-    ## $ delta_bac_carbon_uM      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, …
-    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181…
-    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 …
-    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872…
+    ## $ Datetime                 <dttm> 2021-10-04 16:00:00, 2021-10-06 20:00:00, 202~
+    ## $ TOC_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Cell_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DAPI_Sample              <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ DNA_Sample               <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+    ## $ Nutrient_Sample          <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,~
+    ## $ Cells_mL                 <dbl> 660667.0, 919405.6, 1133869.7, 663088.1, 104~
+    ## $ Cells_mL_Stdev           <dbl> 73217.76, 363326.27, 99930.05, 113546.27, 181~
+    ## $ Mean_Biovolume_um3_cell  <dbl> 0.04556209, 0.05080353, 0.04093212, 0.0387149~
+    ## $ Biovolume_Stdev_um3_cell <dbl> 0.006054805, 0.011000369, 0.004684495, 0.0054~
+    ## $ Cells_L                  <dbl> 660667000, 919405583, 1133869724, 663088109, ~
+    ## $ Cells_L_Stdev            <dbl> 73217756, 363326274, 99930050, 113546267, 181~
+    ## $ interv                   <Interval> 2021-10-04 16:00:00 UTC--2021-10-04 16:00:00 ~
+    ## $ s                        <dbl> 0, 187200, 360000, 0, 187200, 360000, 0, 1872~
     ## $ hours                    <dbl> 0, 52, 100, 0, 52, 100, 0, 52, 100, 0, 52, 100
-    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166…
-    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76…
-    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000…
+    ## $ days                     <dbl> 0.000000, 2.166667, 4.166667, 0.000000, 2.166~
+    ## $ ln_cells                 <dbl> 20.30876, 20.63924, 20.84890, 20.31242, 20.76~
+    ## $ diff_ln_cells            <dbl> 0.00000000, 0.33047743, 0.20966424, 0.0000000~
     ## $ exp_start                <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ## $ exp_end                  <dbl> 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6…
-    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, …
+    ## $ ln_cells_exp_start       <dbl> 20.30876, 20.30876, 20.30876, 20.31242, 20.31~
+    ## $ ln_cells_exp_end         <dbl> 20.63924, 20.63924, 20.63924, 20.76594, ~
+    ## $ cells_exp_start          <dbl> 660667000, 660667000, 660667000, 663088109, 6~
+    ## $ cells_exp_end            <dbl> 919405583, 919405583, 919405583, 1043597828, ~
     ## $ days_exp_start           <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166…
-    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3…
+    ## $ days_exp_end             <dbl> 2.166667, 2.166667, 2.166667, 2.166667, 2.166~
+    ## $ mew                      <dbl> 0.1525280, 0.1525280, 0.1525280, 0.2093177, 0~
+    ## $ doubling                 <dbl> 4.544392, 4.544392, 4.544392, 3.311461, 3.311~
+    ## $ delta_cells              <dbl> 258738583, 258738583, 258738583, 380509719, 3~
     ## $ CCF                      <dbl> 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
-    ## $ bc                       <dbl> 1.651667, 2.298514, 2.834674, 1.657720, …
-    ## $ delta_bc                 <dbl> 0.6468465, 0.6468465, 0.6468465, 0.9512743, 0…
-    ## $ biovol_CCF               <dbl> 29.97370, 32.29843, 27.84930, 26.80546, 39.49…
-    ## $ biovol_bc                <dbl> 1.650220, 2.474613, 2.631457, 1.481199, 3.434…
-    ## $ biovol_bc_exp_end        <dbl> 2.474613, 2.474613, 2.474613, 3.434791, 3.434…
-    ## $ delta_biovol_bc          <dbl> 0.8243938, 0.8243938, 0.8243938, 1.9535926, 1…
-    ## $ Mean_uMC                 <dbl> 91.70646, 89.13506, 87.79890, 94.82839, 89.17…
-    ## $ Stdev_uMC                <dbl> 0.2829882, 0.1920780, 0.2928296, 0.3088847, 0…
-    ## $ DOC_uMC                  <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ `Bioav_DOC_%`            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ Delta_DOC_uMC            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-    ## $ BGE                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+    ## $ bc                       <dbl> 1.651667, 2.298514, 2.834674, 1.657720, 2.608~
+    ## $ delta_bc                 <dbl> 0.6468465, 0.6468465, 0.6468465, 0.9512743, 0~
+    ## $ biovol_CCF               <dbl> 29.97370, 32.29843, 27.84930, 26.80546, 39.49~
+    ## $ biovol_bc                <dbl> 1.650220, 2.474613, 2.631457, 1.481199, 3.434~
+    ## $ biovol_bc_exp_end        <dbl> 2.474613, 2.474613, 2.474613, 3.434791, 3.434~
+    ## $ delta_biovol_bc          <dbl> 0.8243938, 0.8243938, 0.8243938, 1.9535926, 1~
+    ## $ Mean_uMC                 <dbl> 91.70646, 89.13506, 87.79890, 94.82839, 89.17~
+    ## $ Stdev_uMC                <dbl> 0.2829882, 0.1920780, 0.2928296, 0.3088847, 0~
 
 ``` r
 toc %>% 
@@ -819,7 +760,14 @@ imply about our ability to assess the effect of the **type** of DOC
 added? d) What happens to TOC over time in the incubations and does this
 align with our other data?
 
-A6: a) b) c) d)
+A6: a) We aimed to add 10 umol of carbon to each treatment except the
+control. b) We unfortunately did not hit our target. But the GNP
+treatment was pretty successful c) We are not able to determine that our
+results are due to the type of carbon added in our experiment. And the
+amounts added are potentially a confounding variable. d) The TOC
+declines over time. This aligns with our other data because the cells
+are growing/multiplying and consuming carbon. This results in increased
+CO2 which is not captured by TOC.
 
 ## Calculate DOC, ∆DOC, Bioavailable DOC Fraction, and Bacterial Growth Efficiency (BGE)
 
@@ -877,7 +825,7 @@ deldoc <- doc %>%
 ggplot(aes(x = factor(Treatment, levels = levels), y =  delta_doc, group =Treatment))  + 
   geom_bar(position = position_dodge(), stat = "identity", color = "black", fill = "white", alpha = 1) +
   #geom_errorbar(aes(ymin = ave_delta_doc - sd_delta_doc, ymax = ave_delta_doc + sd_delta_doc), position = position_dodge(width = 0.9), stat = "identity", width = 0.1, size = 0.5) +
-  labs(x = "", y = expression(paste("∆ DOC, µmol C L"^-1)), color = "") +
+  labs(x = "", y = expression(paste("Delta DOC, µmol C L"^-1)), color = "") +
   theme_classic() +
   coord_flip()+
   #facet_grid(~factor(Location, levels = levels), scales = "free") +
@@ -892,7 +840,7 @@ deldoc_bv <- doc %>%
 ggplot(aes(x = factor(Treatment, levels = levels), y =  delta_doc_bv, group =Treatment))  + 
   geom_bar(position = position_dodge(), stat = "identity", color = "black", fill = "white", alpha = 1) +
   #geom_errorbar(aes(ymin = ave_delta_doc - sd_delta_doc, ymax = ave_delta_doc + sd_delta_doc), position = position_dodge(width = 0.9), stat = "identity", width = 0.1, size = 0.5) +
-  labs(x = "", y = expression(paste("Biovolume-Derived ∆ DOC, µmol C L"^-1)), color = "") +
+  labs(x = "", y = expression(paste("Biovolume-Derived Delta DOC, µmol C L"^-1)), color = "") +
   theme_classic() +
   coord_flip()+
   #facet_grid(~factor(Location, levels = levels), scales = "free") +
@@ -941,4 +889,18 @@ Q7: How does incorporating biovolume change (or not change) your
 interpretation of the ∆DOC, Bioavaliable DOC, and BGE values? Provide
 1-2 sentences for each comparison (a vs. b,c vs. d & e vs. f)
 
-A7:
+A7: For a vs. b incorporating biovolume did not change ∆DOC very much.
+The Kelp Exudades fluctuated about 1-2 umol C per L. It makes sense that
+GNP has the highest ∆DOC because it started out with the most organic
+carbon and then the cells consumed as much as possible.
+
+For c vs. d the bioavailable DOC Fractions before and after
+incorporating biovolume showed essentially the same results. It also
+matches the pattern of ∆DOC. Bioavailable DOC Fractions are helpful in
+determining the lability of the different forms of DOM.
+
+For e vs. f incorporating biovolume drastically changed the BGE for most
+treatments. The Control increased about 25% while the other treatments
+increased about 100%. The Kelp Exudate + NP treatment had the highest
+BGE showing that those cells were better at retaining carbon as biomass
+rather than respiring it as CO2.

@@ -1,0 +1,58 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+#Justine's files to ignore
+.DS_Store
+Input_Data/.DS_Store
+Input_Data/week3/144L_2021_BactAbund.xlsx
+Input_Data/week3/211017_new_Data.csv
+Input_Data/week4/144L_2021_BactAbund_2.xlsx
+Scripts/211015_2021_abundance_data.md
+Scripts/211015_2021_abundance_data_files/
+Scripts/211015_2021_abundance_data.Rmd
+Scripts/211017_demo_planning.Rmd
+Scripts/211018_2021_abundance_data.Rmd
+Scripts/211018_2021_abundance_data_files
+Scripts/211024_2021_abundance_data.Rmd
+Scripts/211024_2021_fcm1_data.Rmd
+Scripts/211027_2021_dapi_abundance.md
+Scripts/211027_2021_dapi_data_demo_files
+Scripts/211027_2021_dapi_data_demo.Rmd
+Scripts/211027_2021_dapi_data_demo.md
