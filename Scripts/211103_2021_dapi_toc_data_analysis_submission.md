@@ -14,7 +14,7 @@ Load packages that we’ll need to analyze our data.
 # Import Data
 
 ``` r
-#make sure to update the filepaths for your own locally-stored repository! 
+#make sure to update the file-paths for your own locally-stored repository! 
 excel_sheets("144L_2021_BactAbund.xlsx")
 ```
 
