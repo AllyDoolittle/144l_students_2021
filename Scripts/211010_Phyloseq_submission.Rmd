@@ -1,6 +1,6 @@
 ---
 title: "Phyloseq"
-author: "Your Name"
+author: "Ally Doolittle"
 date: "11/10/2021"
 output: github_document
 ---
@@ -12,11 +12,11 @@ We explore the processed ACIDD 16S sequences using [phyloseq](https://joey711.gi
 # Install phyloseq
 
 ```{r}
-#BiocManager::install("phyloseq")
+BiocManager::install("phyloseq")
 ```
 
 
-```{r message = F, warning = F}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse) 
 library(phyloseq)
 library(RColorBrewer)
@@ -27,16 +27,16 @@ library(lubridate)
 # Import Data 
 
 ```{r message = F}
-count.tab <- read_rds("~/Documents/144l_students_2021/Input_Data/week7/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
-tax.tab <- read_rds("~/Documents/144l_students_2021/Input_Data/week7/taxa.rds") #table that matches ASV to sequence
+count.tab <- read_rds("Reference_Database/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
+tax.tab <- read_rds("Reference_Database/taxa.rds") #table that matches ASV to sequence
 
 #you will need to download the ACIDD_Exp_Processed_DOC_BGE.rds and the ACIDD_Exp_BactAbund.xlsx files from Justine's Github repository (located in Input_Data/week7/) and put them into your own local Input Data folder
-metadata_OG <- read_excel("~/Documents/144l_students_2021/Input_Data/week7/ACIDD_Exp_BactAbund.xlsx", sheet = "Metadata")
+metadata_OG <- read_excel("144L ACIDD/ACIDD_Exp_BactAbund.xlsx", sheet = "Metadata")
 glimpse(metadata_OG)
 metadata <- metadata_OG %>%
   mutate(Datetime = ymd_hm(Datetime))
 glimpse(metadata)
-metadata_doc <- read_rds("~/Documents/144l_students_2021/Input_Data/week7/ACIDD_Exp_Processed_DOC_BGE.rds")
+metadata_doc <- read_rds("144L ACIDD/ACIDD_Exp_Processed_DOC_BGE.rds")
 glimpse(metadata_doc)
 join <- left_join(metadata_doc, metadata)
 sample.tab <- join %>%
@@ -67,7 +67,7 @@ sub_ps <- ps %>%
 
 Q1: What did we do in the code chunk above? (What is the difference between phyloseq object ps and phyloseq object sub_ps?) Why did we do this? 
 
-A1: 
+A1: We removed the mitochondria and chloroplast sequences.ps is the formal class phyloseq data object and sub_ps is a subset phyloseq object derived from ps. We did this because we're only amplifying bacterial sequences. 
 
 # Sample Summary
 
@@ -86,7 +86,7 @@ ggplot(sample_sum_df, aes(x = sum)) +
 ```
 Q2: Describe what "sequencing depth" means in your own words. 
 
-A2: 
+A2: The number of times a nucleotide in the genome has been read
 
 ```{r}
 # mean, max and min of sample read counts
@@ -108,7 +108,7 @@ We will rarefy (random subsample with replacement) the read depth of the samples
 
 [Response blog for subsampling](https://www.polarmicrobes.org/how-i-learned-to-stop-worrying-and-love-subsampling-rarifying/)
 
-Read depth is an artefact of a machine made by a company in San Diego, not anything about your samples or their biology. It is totally artifactual, and controlling for artifacts is critical in science. Subsampling randomly is the simplest way to control for this, and the question is whether this is the "best" way of controlling for it. See links above for alternative arguments about what the best way of controlling for this artefact is. 
+Read depth is an artifact of a machine made by a company in San Diego, not anything about your samples or their biology. It is totally artifactual, and controlling for artifacts is critical in science. Subsampling randomly is the simplest way to control for this, and the question is whether this is the "best" way of controlling for it. See links above for alternative arguments about what the best way of controlling for this artifact is. 
 
 A strong reason to subsample is to standardize effort. The bottom line is that in all experimental design you should not be comparing things to which you devote different effort in resolution. For instance, you don't sample one site once a week and another once a month if you want to compare the dynamics between the sites. You standardize effort.
 
@@ -130,9 +130,9 @@ mean(sample_sums(sub_ps)) #7686
 mean(sample_sums(ps_min)) #6048 this is also the same as min(sample_sums(sub)ps) 
 ```
 
-Q3: Do you think that the subsampling we did here will have a large effect on our beta diveristy analyses? why or why not? 
+Q3: Do you think that the subsampling we did here will have a large effect on our beta diversity analyses? why or why not? 
 
-A3: 
+A3: No because there isn't a big difference between the minimum and mean read depths.
 
 ## NMDS
 
@@ -188,11 +188,11 @@ NMDS plots attempt to show ordinal distances between samples as accurately as po
 
 Q4: Which datasets were used to make the two NMDS plots above? Based on how these two plots look, which dataset are we going to move forward with and why? 
 
-A4: 
+A4: Unconstrained ordinations on non subsampled and subsampled data.
 
 Q5: Describe in a couple of sentences what patterns you see in the beta diversity of the communities in the control and Ash Leachate treatments. 
 
-A5: 
+A5: In San Diego by day 4 the Ash Leachate community is dissimilar to the Control community. In Santa Barbara the communities at day 4 are relatively similar but different from the initial timepoint.
 
 # Alpha Diversity
 
@@ -227,7 +227,7 @@ alphadiv <- left_join(richness, sample.tab %>% rownames_to_column(., var = "DNA_
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8, fig.align = "center"}
 
-# install.packages("ggpubr")
+#install.packages("ggpubr")
 library(ggpubr)
 
 pivot.data <- alphadiv %>% 
@@ -255,7 +255,7 @@ Boxes represent the 1.5 interquartile range, with the internal solid line repres
 
 Difference in the alpha diversity indexes among conditions were tested using pairwise Wilcoxon tests; p < 0.05 was considered the threshold significance for a difference between conditions.
 
-From this plot we can see within the treatments that the richness (via Chao index) of our samples significantly changed, while overall diversity (via Shannon index) did not change. This suggest that while richness decreased in both the control and ash leachate treatments, the eveness was similar between the initial and final conditions. 
+From this plot we can see within the treatments that the richness (via Chao index) of our samples significantly changed, while overall diversity (via Shannon index) did not change. This suggest that while richness decreased in both the control and ash leachate treatments, the evenness was similar between the initial and final conditions. 
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE, fig.height = 6, fig.width = 8, fig.align = "center"}
 
@@ -277,7 +277,7 @@ From this plot we can see between the treatments that the richness of the contro
 
 Q6: Summarize the major takeaways from the alpha diversity plots you generated. 
 
-A6: 
+A6: The Ash Leachate samples were less rich, less even, and had less ASVs at T6 than the control.
 
 # Who??
 
@@ -358,7 +358,7 @@ relaheat.data <- relabund %>%
   select(-relabund) %>% 
   distinct()
 
-# install.packages("viridis")
+#install.packages("viridis")
 library(viridis)
 
 relaheat <- relaheat.data %>%
@@ -377,17 +377,17 @@ relaheat
 
 Q7: Who uniquely increased in relative abundance in the ash leachate treatment that did not in the control? what about decrease?
 
-A7: 
+A7: Alteromonadales, Oceanospirillales, Rhodobacterales, and Campylobacterales increased in relative abundance in the ash leachate treatment that did not in the control. Cellvibrionales and Burkholderiales decrease.
 
 Everything shown here is just a snapshot of what you can look at with your community composition data. There are many other resources you can use to get ideas of how to look at different aspects of your data, including the [phyloseq tutorial](https://joey711.github.io/phyloseq/) and [happy belly bioinformatics](https://astrobiomike.github.io). It's up to you and your questions!!
 
 # Save and knit
 
 ```{r}
-saveRDS(sweet.tab, "~/Documents/144l_students_2021/Output_Data/week7/Custom_ASV_Table.rds")
-saveRDS(sub_ps, "~/Documents/144l_students_2021/Output_Data/week7/phyloseq_obj.rds")
-saveRDS(ps_min, "~/Documents/144l_students_2021/Output_Data/week7/subsampled_phyloseq_obj.rds")
-saveRDS(alphadiv, "~/Documents/144l_students_2021/Output_Data/week7/alphadiv.rds")
+saveRDS(sweet.tab, "Phyloseq/Custom_ASV_Table.rds")
+saveRDS(sub_ps, "Phyloseq/phyloseq_obj.rds")
+saveRDS(ps_min, "Phyloseq/subsampled_phyloseq_obj.rds")
+saveRDS(alphadiv, "Phyloseq/alphadiv.rds")
 
 ```
 
