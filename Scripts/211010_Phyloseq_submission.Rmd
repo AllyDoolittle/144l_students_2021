@@ -30,7 +30,7 @@ knitr::opts_chunk$set(fig.path='Figs/')
 ```
 
 
-# Import Data 
+#Import Data 
 
 ```{r message = F}
 count.tab <- read_rds("Reference_Database/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
