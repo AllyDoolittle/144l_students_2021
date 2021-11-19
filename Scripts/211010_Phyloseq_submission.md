@@ -30,16 +30,22 @@ library(readxl)
 library(lubridate)
 ```
 
-# Import Data
-
 ``` r
-count.tab <- read_rds("Reference_Database/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
-tax.tab <- read_rds("Reference_Database/taxa.rds") #table that matches ASV to sequence
-
-#you will need to download the ACIDD_Exp_Processed_DOC_BGE.rds and the ACIDD_Exp_BactAbund.xlsx files from Justine's Github repository (located in Input_Data/week7/) and put them into your own local Input Data folder
-metadata_OG <- read_excel("144L ACIDD/ACIDD_Exp_BactAbund.xlsx", sheet = "Metadata")
-glimpse(metadata_OG)
+knitr::opts_chunk$set(fig.path='Figs/')
 ```
+
+
+
+    # Import Data 
+
+
+    ```r
+    count.tab <- read_rds("Reference_Database/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
+    tax.tab <- read_rds("Reference_Database/taxa.rds") #table that matches ASV to sequence
+
+    #you will need to download the ACIDD_Exp_Processed_DOC_BGE.rds and the ACIDD_Exp_BactAbund.xlsx files from Justine's Github repository (located in Input_Data/week7/) and put them into your own local Input Data folder
+    metadata_OG <- read_excel("144L ACIDD/ACIDD_Exp_BactAbund.xlsx", sheet = "Metadata")
+    glimpse(metadata_OG)
 
     ## Rows: 84
     ## Columns: 18
@@ -208,7 +214,7 @@ bacterial sequences.
 As a first analysis, we will look at the distribution of read counts
 from our samples
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
 Q2: Describe what “sequencing depth” means in your own words.
 
 A2: The number of times a nucleotide in the genome has been read
@@ -287,7 +293,7 @@ ps_min <-  rarefy_even_depth(sub_ps, sample.size = min(sample_sums(sub_ps)))
 
     ## ...
 
-    ## 5OTUs were removed because they are no longer 
+    ## 1OTUs were removed because they are no longer 
     ## present in any sample after random subsampling
 
     ## ...
@@ -392,66 +398,63 @@ nmds_min <- ordinate(ps_min, method = "NMDS",  distance = "bray") # stress = 0.0
 
     ## Square root transformation
     ## Wisconsin double standardization
-    ## Run 0 stress 0.04230793 
-    ## Run 1 stress 0.1688268 
-    ## Run 2 stress 0.04230793 
-    ## ... Procrustes: rmse 1.361123e-06  max resid 2.854625e-06 
+    ## Run 0 stress 0.03940129 
+    ## Run 1 stress 0.1714953 
+    ## Run 2 stress 0.03940129 
+    ## ... Procrustes: rmse 1.740117e-05  max resid 3.066743e-05 
     ## ... Similar to previous best
-    ## Run 3 stress 0.04230793 
-    ## ... Procrustes: rmse 2.185387e-06  max resid 4.589339e-06 
+    ## Run 3 stress 0.207123 
+    ## Run 4 stress 0.3121135 
+    ## Run 5 stress 0.03940129 
+    ## ... Procrustes: rmse 1.209346e-05  max resid 2.074727e-05 
     ## ... Similar to previous best
-    ## Run 4 stress 0.04230793 
-    ## ... Procrustes: rmse 3.521992e-06  max resid 7.400862e-06 
+    ## Run 6 stress 0.03940129 
+    ## ... Procrustes: rmse 1.983135e-06  max resid 5.446941e-06 
     ## ... Similar to previous best
-    ## Run 5 stress 0.04230793 
-    ## ... Procrustes: rmse 1.80239e-06  max resid 3.828053e-06 
+    ## Run 7 stress 0.03940129 
+    ## ... Procrustes: rmse 9.571372e-06  max resid 1.639382e-05 
     ## ... Similar to previous best
-    ## Run 6 stress 0.04230793 
-    ## ... Procrustes: rmse 1.680895e-06  max resid 2.985695e-06 
+    ## Run 8 stress 0.03940129 
+    ## ... Procrustes: rmse 1.580654e-05  max resid 2.732456e-05 
     ## ... Similar to previous best
-    ## Run 7 stress 0.04230793 
-    ## ... Procrustes: rmse 2.379128e-06  max resid 5.022421e-06 
+    ## Run 9 stress 0.03940129 
+    ## ... New best solution
+    ## ... Procrustes: rmse 2.805727e-06  max resid 4.714865e-06 
     ## ... Similar to previous best
-    ## Run 8 stress 0.04230793 
-    ## ... Procrustes: rmse 1.098373e-06  max resid 2.235303e-06 
+    ## Run 10 stress 0.03940129 
+    ## ... Procrustes: rmse 3.423161e-06  max resid 6.132902e-06 
     ## ... Similar to previous best
-    ## Run 9 stress 0.04230793 
-    ## ... Procrustes: rmse 4.154181e-06  max resid 8.708923e-06 
+    ## Run 11 stress 0.03940129 
+    ## ... Procrustes: rmse 2.914482e-06  max resid 5.007698e-06 
     ## ... Similar to previous best
-    ## Run 10 stress 0.04230793 
-    ## ... Procrustes: rmse 4.41385e-06  max resid 9.253634e-06 
+    ## Run 12 stress 0.1973371 
+    ## Run 13 stress 0.03940129 
+    ## ... Procrustes: rmse 4.579023e-06  max resid 8.312219e-06 
     ## ... Similar to previous best
-    ## Run 11 stress 0.04230793 
-    ## ... Procrustes: rmse 1.339966e-06  max resid 2.380957e-06 
+    ## Run 14 stress 0.03940129 
+    ## ... Procrustes: rmse 4.629298e-06  max resid 8.315566e-06 
     ## ... Similar to previous best
-    ## Run 12 stress 0.1688268 
-    ## Run 13 stress 0.04230793 
-    ## ... Procrustes: rmse 2.172854e-06  max resid 4.346721e-06 
+    ## Run 15 stress 0.0394013 
+    ## ... Procrustes: rmse 3.811006e-05  max resid 6.677161e-05 
     ## ... Similar to previous best
-    ## Run 14 stress 0.04230793 
-    ## ... Procrustes: rmse 3.286616e-06  max resid 6.90858e-06 
+    ## Run 16 stress 0.03940129 
+    ## ... Procrustes: rmse 6.536005e-06  max resid 1.161148e-05 
     ## ... Similar to previous best
-    ## Run 15 stress 0.04230793 
-    ## ... Procrustes: rmse 1.891622e-06  max resid 3.903282e-06 
-    ## ... Similar to previous best
-    ## Run 16 stress 0.04230793 
-    ## ... Procrustes: rmse 1.787627e-06  max resid 3.114935e-06 
-    ## ... Similar to previous best
-    ## Run 17 stress 0.04230793 
-    ## ... Procrustes: rmse 1.816009e-06  max resid 3.800335e-06 
+    ## Run 17 stress 0.03940129 
+    ## ... Procrustes: rmse 1.858886e-05  max resid 3.210484e-05 
     ## ... Similar to previous best
     ## Run 18 stress 0.3658208 
-    ## Run 19 stress 0.04230793 
-    ## ... Procrustes: rmse 6.953033e-07  max resid 1.053592e-06 
+    ## Run 19 stress 0.03940129 
+    ## ... Procrustes: rmse 9.552592e-07  max resid 2.290915e-06 
     ## ... Similar to previous best
-    ## Run 20 stress 0.04230793 
-    ## ... Procrustes: rmse 1.327694e-06  max resid 2.122315e-06 
+    ## Run 20 stress 0.0394013 
+    ## ... Procrustes: rmse 3.113917e-05  max resid 5.429151e-05 
     ## ... Similar to previous best
     ## *** Solution reached
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 NMDS plots attempt to show ordinal distances between samples as
 accurately as possible in two dimensions. It is important to report the
@@ -514,7 +517,7 @@ alphadiv <- left_join(richness, sample.tab %>% rownames_to_column(., var = "DNA_
 
     ## Joining, by = "DNA_ID"
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 Boxes represent the 1.5 interquartile range, with the internal solid
 line representing the median. Circles represent data points. p-values
@@ -532,7 +535,7 @@ diversity (via Shannon index) did not change. This suggest that while
 richness decreased in both the control and ash leachate treatments, the
 evenness was similar between the initial and final conditions.
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 From this plot we can see between the treatments that the richness of
 the control samples were higher at the initial condition than the ash
@@ -631,7 +634,7 @@ relabund <- sweet.tab %>%
 
 ## Heatmap
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 Q7: Who uniquely increased in relative abundance in the ash leachate
 treatment that did not in the control? what about decrease?
@@ -659,4 +662,4 @@ saveRDS(alphadiv, "Phyloseq/alphadiv.rds")
 
 # Stacked Barplots
 
-<img src="211010_Phyloseq_submission_files/figure-gfm/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+<img src="Figs/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />

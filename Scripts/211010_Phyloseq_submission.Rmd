@@ -24,6 +24,12 @@ library(readxl)
 library(lubridate)
 ```
 
+```{r global_options}
+knitr::opts_chunk$set(fig.path='Figs/')
+```
+```
+
+
 # Import Data 
 
 ```{r message = F}
