@@ -12,7 +12,7 @@ We explore the processed ACIDD 16S sequences using [phyloseq](https://joey711.gi
 # Install phyloseq
 
 ```{r}
-BiocManager::install("phyloseq")
+#BiocManager::install("phyloseq")
 ```
 
 
@@ -24,13 +24,18 @@ library(readxl)
 library(lubridate)
 ```
 
+```{r}
+library(knitr)
+opts_chunk$set(dev="png")
+```
+
 ```{r global_options}
 knitr::opts_chunk$set(fig.path='Figs/')
 ```
-```
 
 
-#Import Data 
+
+# Import Data 
 
 ```{r message = F}
 count.tab <- read_rds("Reference_Database/seqtab-nochimtaxa.rds") #table of counts for each sequence in each sample
@@ -79,7 +84,7 @@ A1: We removed the mitochondria and chloroplast sequences.ps is the formal class
 
 As a first analysis, we will look at the distribution of read counts from our samples
 
-```{r echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4, fig.width = 6, fig.align = "center"}
+```{r warning = FALSE, message = FALSE, fig.height = 4, fig.width = 6, fig.align = "center"}
 # Make a data frame with a column for the read counts of each sample
 sample_sum_df <- data.frame(sum = sample_sums(sub_ps))
 # Histogram of sample read counts
